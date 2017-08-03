@@ -22,7 +22,8 @@ const IgnorePlugin = require('webpack/lib/IgnorePlugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
-const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
+// const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin'); //webpack3.0
 const OptimizeJsPlugin = require('optimize-js-plugin');
 
 /**
@@ -102,10 +103,14 @@ module.exports = function (env) {
          */
         {
           test: /\.css$/,
-          loader: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: 'css-loader'
+          use: ExtractTextPlugin.extract({
+            fallback: "style-loader",
+            use: "css-loader"
           }),
+          // loader: ExtractTextPlugin.extract({
+          //   fallback: 'style-loader',
+          //   use: 'css-loader'
+          // }),
           include: [helpers.root('src', 'styles')]
         },
 
@@ -114,10 +119,14 @@ module.exports = function (env) {
          */
         {
           test: /\.scss$/,
-          loader: ExtractTextPlugin.extract({
-            fallback: 'style-loader',
-            use: 'css-loader!sass-loader'
+          use: ExtractTextPlugin.extract({
+            fallback: "style-loader",
+            use: "css-loader!sass-loader"
           }),
+          // loader: ExtractTextPlugin.extract({
+          //   fallback: 'style-loader',
+          //   use: 'css-loader!sass-loader'
+          // }),
           include: [helpers.root('src', 'styles')]
         },
 
@@ -195,26 +204,26 @@ module.exports = function (env) {
         // comments: true, //debug
 
 
-        beautify: false, //prod
-        output: {
-          comments: false
-        }, //prod
-        mangle: {
-          screw_ie8: true
-        }, //prod
-        compress: {
-          screw_ie8: true,
-          warnings: false,
-          conditionals: true,
-          unused: true,
-          comparisons: true,
-          sequences: true,
-          dead_code: true,
-          evaluate: true,
-          if_return: true,
-          join_vars: true,
-          negate_iife: false // we need this for lazy v8
-        },
+        // beautify: false, //prod
+        // output: {
+        //   comments: false
+        // }, //prod
+        // mangle: {
+        //   screw_ie8: true
+        // }, //prod
+        // compress: {
+        //   screw_ie8: true,
+        //   warnings: false,
+        //   conditionals: true,
+        //   unused: true,
+        //   comparisons: true,
+        //   sequences: true,
+        //   dead_code: true,
+        //   evaluate: true,
+        //   if_return: true,
+        //   join_vars: true,
+        //   negate_iife: false // we need this for lazy v8
+        // },
       }),
 
       /**
